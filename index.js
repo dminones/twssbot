@@ -8,9 +8,10 @@ var port = process.env.PORT || 80;
 // make express look in the client directory for assets (css/js/img/html)
 app.use(express.static(__dirname + '/client'));
 
-app.get('/:q', function (req, res) {
+app.get('/twss', function (req, res) {
+	console.log(decodeURIComponent(req.query.q));
     res.setHeader('Content-Type', 'application/json');
-	res.send({ twss: twss.is(req.params.q) })
+	res.send({ twss: twss.is(decodeURIComponent(req.query.q)) })
 })
 
 app.listen(port, function () {
