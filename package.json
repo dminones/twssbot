@@ -1,0 +1,23 @@
+{
+  "name": "twssbot",
+  "version": "1.0.0",
+  "description": "That's What She Said Bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dminones/twssbot.git"
+  },
+  "author": "Dario Miñones",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dminones/twssbot/issues"
+  },
+  "homepage": "https://github.com/dminones/twssbot#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "twss": "^0.1.6"
+  }
+}
