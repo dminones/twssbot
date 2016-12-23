@@ -9,6 +9,7 @@ angular.module('myApp',[])
 		$scope.twss;
 		$http.get('/twss', {params: {q:encodeURIComponent(query)}}).then(function(response){
 			console.log(response.data);
+			$scope.response = null;
 			$scope.twss = response.data.twss;
 			if($scope.twss){
 				$scope.response = "That's what she sayd!!!";
