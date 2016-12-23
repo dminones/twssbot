@@ -12,9 +12,9 @@ angular.module('myApp',[])
 			$scope.response = null;
 			$scope.twss = response.data.twss;
 			if($scope.twss){
-				$scope.response = "That's what she sayd!!!";
+				$scope.response = "That's what she said!!!";
 			}else {
-				$scope.response = "Sorry, can't say she sayd that...";
+				$scope.response = "Sorry, can't say she said that...";
 			}
 		}, function(){
 			$scope.response = "Sorry, can't say";
