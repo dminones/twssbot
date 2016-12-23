@@ -3,7 +3,7 @@ var express = require('express');
 var app = express();
 
 // set the port of our application
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 80;
 
 // make express look in the client directory for assets (css/js/img/html)
 app.use(express.static(__dirname + '/client'));
@@ -13,8 +13,8 @@ app.get('/:q', function (req, res) {
 	res.send({ twss: twss.is(req.params.q) })
 })
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
+app.listen(port, function () {
+  console.log('Example app listening on port '.port)
 })
 
 console.log("Nice weather we're having today",twss.is("Nice weather we're having today")); // false
