@@ -1,6 +1,7 @@
 var twss = require('twss');
 var express = require('express');
 var app = express();
+var request = require('superagent');
 
 // set the port of our application
 var port = process.env.PORT || 80;
@@ -13,6 +14,21 @@ app.get('/twss', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
 	res.send({ twss: twss.is(decodeURIComponent(req.query.q)) })
 })
+
+app.get('/open', function (req, res) {
+	console.log(decodeURIComponent(req.query.q));
+	request.post('https://demo-indigo4health.archimedesmodel.com/')
+		   .send(req.body)
+		   .set('Accept', 'application/json')
+		   .end(function(err, response){
+		   		if(err) {
+		   			console.log(err);
+				}
+		        res.setHeader('Content-Type', 'application/json');
+				res.send(response.body);
+		   });
+})
+
 
 app.listen(port, function () {
   console.log('Example app listening on port '.port)
