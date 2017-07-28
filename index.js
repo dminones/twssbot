@@ -22,7 +22,14 @@ app.get('/twss', function (req, res) {
 app.post('/indigo4health', function (req, res) {
 
 	const searchParams = Object.keys(req.body).map((key) => {
-	  return encodeURIComponent(key) + '=' + encodeURIComponent(req.body[key]);
+		if(Array.isArray(req.body[key])) {
+			var arrayItem = req.body[key];
+			return Object.keys(arrayItem).map((k) => {
+				return key + '=' + encodeURIComponent(arrayItem[k]);
+			}).join('&');
+		} else {
+			return encodeURIComponent(key) + '=' + encodeURIComponent(req.body[key]);
+		}
 	}).join('&');
 
 	var curlCall = 'curl -H "Content-Type: application/x-www-form-urlencoded" -X  POST -d \''+searchParams+'\' https://demo-indigo4health.archimedesmodel.com/IndiGO4Health/IndiGO4Health';
