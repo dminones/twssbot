@@ -16,26 +16,20 @@ app.get('/twss', function (req, res) {
 })
 
 app.post('/indigo4health', function (req, res) {
-	request('https://demo-indigo4health.archimedesmodel.com/IndiGO4Health/IndiGO4Health', function (error, response, body) {
-	  if (!error && response.statusCode == 200) {
-	    console.log(body) // Print the google web page.
-	    res.send(body);
-	  }else {
-	  	res.send(error);
+	const child_process = require('child_process');
+	console.log("curl -H GET https://demo-indigo4health.archimedesmodel.com/IndiGO4Health/IndiGO4Health");
+	child_process.exec('curl -H POST -d "'+req.body+'" https://demo-indigo4health.archimedesmodel.com/IndiGO4Health/IndiGO4Health', (err, stdout, stderr) => {
+	  if (err) {
+	    // node couldn't execute the command
+	    console.log(err);
+	    return;
 	  }
+
+	  // the *entire* stdout and stderr (buffered)
+	  console.log(`stdout: ${stdout}`);
+	  console.log(`stderr: ${stderr}`);
+	  res.send(stdout);
 	});
-	/*
-	request.post('https://demo-indigo4health.archimedesmodel.com/IndiGO4Health/IndiGO4Health')
-		   .send("age=40&gender=M&height=70&weight=160&smoker=F&mi=F&stroke=T&diabetes=T&systolic=&diastolic=&cholesterol=&hdl=&ldl=&hba1c=&cholesterolmeds=&bloodpressuremeds=&bloodpressuremedcount=&aspirin=&moderateexercise=&vigorousexercise=&familymihistory=Name")
-		   .end(function(error, response){
-	   			if (error || !response.ok) {
-	   				console.log(error);
-		       		res.send(error);
-		     	} else {
-			        res.setHeader('Content-Type', 'application/json');
-					res.send(response.body);
-		     	}
-		   });*/
 })
 
 
