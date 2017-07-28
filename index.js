@@ -2,12 +2,16 @@ var twss = require('twss');
 var express = require('express');
 var app = express();
 var request = require('request');
+const child_process = require('child_process');
+var bodyParser = require('body-parser');
 
 // set the port of our application
 var port = process.env.PORT || 3000;
 
 // make express look in the client directory for assets (css/js/img/html)
 app.use(express.static(__dirname + '/client'));
+app.use(bodyParser.urlencoded({ extended: false }))
+
 
 app.get('/twss', function (req, res) {
 	console.log(decodeURIComponent(req.query.q));
@@ -16,9 +20,17 @@ app.get('/twss', function (req, res) {
 })
 
 app.post('/indigo4health', function (req, res) {
-	const child_process = require('child_process');
-	console.log("curl -H GET https://demo-indigo4health.archimedesmodel.com/IndiGO4Health/IndiGO4Health");
-	child_process.exec('curl -H POST -d "'+req.body+'" https://demo-indigo4health.archimedesmodel.com/IndiGO4Health/IndiGO4Health', (err, stdout, stderr) => {
+
+	const searchParams = Object.keys(req.body).map((key) => {
+	  return encodeURIComponent(key) + '=' + encodeURIComponent(req.body[key]);
+	}).join('&');
+
+	var curlCall = 'curl -H "Content-Type: application/x-www-form-urlencoded" -X  POST -d \''+searchParams+'\' https://demo-indigo4health.archimedesmodel.com/IndiGO4Health/IndiGO4Health';
+	console.log(req.body);
+	console.log(curlCall);
+
+
+	child_process.exec(curlCall, (err, stdout, stderr) => {
 	  if (err) {
 	    // node couldn't execute the command
 	    console.log(err);
