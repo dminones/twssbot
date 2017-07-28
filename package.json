@@ -19,6 +19,7 @@
   "homepage": "https://github.com/dminones/twssbot#readme",
   "dependencies": {
     "express": "^4.14.0",
+    "request": "^2.81.0",
     "superagent": "^3.5.2",
     "twss": "^0.1.6"
   }
