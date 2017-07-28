@@ -11,7 +11,13 @@ var port = process.env.PORT || 3000;
 // make express look in the client directory for assets (css/js/img/html)
 app.use(express.static(__dirname + '/client'));
 app.use(bodyParser.urlencoded({ extended: false }))
-
+app.use(function(req, res, next){ // to allow requests
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Credentials', true);
+        res.header('Access-Control-Allow-Headers', 'accept, content-type, Authorization, If-Modified-Since');
+        res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+        next();
+    });
 
 app.get('/twss', function (req, res) {
 	console.log(decodeURIComponent(req.query.q));
